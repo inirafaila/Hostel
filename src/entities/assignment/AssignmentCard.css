@@ -1,0 +1,59 @@
+.assignment-card {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  background-color: var(--color-surface-card);
+}
+
+.assignment-card--current {
+  border-color: var(--color-brand-500);
+  background-color: rgba(92, 155, 245, 0.05);
+}
+
+.assignment-card__bed {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.assignment-card__bed-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-500);
+}
+
+.assignment-card__dorm {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.assignment-card__current-tag {
+  font-size: var(--font-size-xs);
+  background-color: rgba(92, 155, 245, 0.15);
+  color: var(--color-brand-500);
+  border-radius: var(--radius-full);
+  padding: 1px var(--space-2);
+  font-weight: var(--font-weight-semibold);
+}
+
+.assignment-card__period {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+.assignment-card__arrow {
+  color: var(--color-text-muted);
+}
+
+.assignment-card__guest {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+}

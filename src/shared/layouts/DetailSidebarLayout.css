@@ -1,0 +1,50 @@
+.layout-dsl {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+.layout-dsl__pinned {
+  flex-shrink: 0;
+}
+
+.layout-dsl__strip {
+  /* Summary strip inherits its own border-bottom via SummaryStrip component */
+}
+
+.layout-dsl__page-alert {
+  padding: var(--space-3) var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.layout-dsl__body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.layout-dsl__main {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;
+  padding: var(--space-6) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.layout-dsl__sidebar {
+  width: 280px;
+  min-width: 240px;
+  max-width: 320px;
+  flex-shrink: 0;
+  border-left: 1px solid var(--color-border);
+  background-color: var(--color-surface-card);
+  overflow-y: auto; /* sidebar scrolls independently */
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-5);
+  gap: var(--space-5);
+}

@@ -1,0 +1,74 @@
+.payment-strip {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.payment-strip__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  gap: var(--space-4);
+}
+.payment-strip__row:last-child { border-bottom: none; }
+
+.payment-strip__left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.payment-strip__method {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.payment-strip__date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.payment-strip__note {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-style: italic;
+}
+
+.payment-strip__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-shrink: 0;
+}
+
+.payment-strip__amount {
+  font-weight: var(--font-weight-semibold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-success-500);
+}
+
+/* Voided/reversed — de-emphasized but visible (audit trail rule) */
+.payment-strip__row--voided,
+.payment-strip__row--reversed {
+  opacity: 0.5;
+}
+.payment-strip__row--voided .payment-strip__amount,
+.payment-strip__row--reversed .payment-strip__amount {
+  text-decoration: line-through;
+  color: var(--color-text-muted);
+}
+
+.payment-strip__voided-tag {
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-text-muted);
+  background-color: rgba(173, 181, 189, 0.1);
+  border-radius: var(--radius-sm);
+  padding: 1px var(--space-2);
+}

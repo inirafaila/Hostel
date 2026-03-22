@@ -1,0 +1,70 @@
+.receivable-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.receivable-row--clickable {
+  cursor: pointer;
+}
+.receivable-row--clickable:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Aging urgency levels */
+.receivable-row--aging-warn     { border-left: 3px solid var(--color-warning-500); }
+.receivable-row--aging-critical { border-left: 3px solid var(--color-danger-500); }
+
+.receivable-row__guest {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.receivable-row__name {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.receivable-row__date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.receivable-row__aging {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  min-width: 40px;
+}
+
+.receivable-row__aging-days {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.receivable-row__aging-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+/* Balance amount */
+.receivable-row__amount {
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-danger-500);
+  min-width: 80px;
+  text-align: right;
+  flex-shrink: 0;
+}

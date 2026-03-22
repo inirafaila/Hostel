@@ -1,0 +1,110 @@
+.nav-rail {
+  display: flex;
+  flex-direction: column;
+  width: var(--nav-rail-width);
+  height: 100vh;
+  background-color: var(--color-surface-nav);
+  border-right: 1px solid var(--color-border);
+  overflow: hidden;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+.nav-rail__header {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-6) var(--space-5) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.nav-rail__logo {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-brand-500);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.nav-rail__logo-sub {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: var(--space-1);
+}
+
+.nav-rail__list {
+  list-style: none;
+  padding: var(--space-3) var(--space-2);
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.nav-rail__item {
+  width: 100%;
+}
+
+.nav-rail__link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  text-decoration: none;
+  width: 100%;
+}
+
+.nav-rail__link:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.nav-rail__link--active {
+  background-color: rgba(92, 155, 245, 0.12);
+  color: var(--color-brand-500);
+}
+
+.nav-rail__link--active:hover {
+  background-color: rgba(92, 155, 245, 0.18);
+  color: var(--color-brand-500);
+}
+
+.nav-rail__icon {
+  font-size: var(--font-size-base);
+  width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.nav-rail__link--active .nav-rail__icon {
+  opacity: 1;
+}
+
+.nav-rail__label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-rail__footer {
+  padding: var(--space-3) var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.nav-rail__version {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}

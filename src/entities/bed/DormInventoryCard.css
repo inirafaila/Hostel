@@ -1,0 +1,68 @@
+.dorm-card {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.dorm-card--clickable {
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+.dorm-card--clickable:hover {
+  border-color: var(--color-border-strong);
+  background-color: var(--color-surface-elevated);
+}
+
+.dorm-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.dorm-card__name {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.dorm-card__type {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  margin-top: 2px;
+}
+
+/* Bed state breakdown grid */
+.dorm-card__bed-breakdown {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.dorm-card__bed-state {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  border: 1px solid transparent;
+}
+
+.dorm-card__bed-count {
+  font-weight: var(--font-weight-bold);
+}
+.dorm-card__bed-state-label {
+  font-weight: var(--font-weight-medium);
+}
+
+/* State color accents */
+.dorm-card__bed-state--available    { background-color: rgba(64, 192, 87, 0.1);   color: var(--color-success-500); border-color: rgba(64, 192, 87, 0.2); }
+.dorm-card__bed-state--reserved     { background-color: rgba(51, 154, 240, 0.1);  color: var(--color-info-500);    border-color: rgba(51, 154, 240, 0.2); }
+.dorm-card__bed-state--occupied     { background-color: rgba(173, 181, 189, 0.1); color: var(--color-neutral-400); border-color: var(--color-border); }
+.dorm-card__bed-state--dirty        { background-color: rgba(250, 176, 5, 0.1);   color: var(--color-warning-500); border-color: rgba(250, 176, 5, 0.2); }
+.dorm-card__bed-state--maintenance,
+.dorm-card__bed-state--out-of-order { background-color: rgba(250, 82, 82, 0.1);   color: var(--color-danger-500);  border-color: rgba(250, 82, 82, 0.2); }

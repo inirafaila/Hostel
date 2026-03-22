@@ -1,0 +1,66 @@
+.folio-totals {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.folio-totals__rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.folio-totals__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-2) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.folio-totals__label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.folio-totals__value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  font-variant-numeric: tabular-nums;
+}
+
+.folio-totals__value--charges  { color: var(--color-text-primary); }
+.folio-totals__value--payments { color: var(--color-success-500); }
+.folio-totals__value--refunds  { color: var(--color-warning-500); }
+
+.folio-totals__divider {
+  height: 1px;
+  background-color: var(--color-border-strong);
+}
+
+/* Balance row — most visual emphasis */
+.folio-totals__row--balance {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: none;
+  background-color: var(--color-surface-elevated);
+}
+
+.folio-totals__balance-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.folio-totals__balance-value {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  font-variant-numeric: tabular-nums;
+}
+/* Pending balance — operator must act */
+.folio-totals__balance-value--pending { color: var(--color-warning-500); }
+/* Credit balance — operator may refund */
+.folio-totals__balance-value--credit  { color: var(--color-info-500); }
+/* Settled */
+.folio-totals__balance-value--zero    { color: var(--color-success-500); }

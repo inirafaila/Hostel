@@ -1,0 +1,83 @@
+.bed-tile {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  min-width: 100px;
+  min-height: 80px;
+  position: relative;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.bed-tile__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.bed-tile__dorm {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.bed-tile__badge {
+  margin-top: auto;
+}
+
+.bed-tile__guest {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+/* ── State color accents ────────── */
+.bed-tile--available {
+  background-color: rgba(64, 192, 87, 0.05);
+  border-color: rgba(64, 192, 87, 0.25);
+}
+.bed-tile--reserved {
+  background-color: rgba(51, 154, 240, 0.05);
+  border-color: rgba(51, 154, 240, 0.25);
+}
+.bed-tile--occupied {
+  background-color: rgba(173, 181, 189, 0.05);
+  border-color: var(--color-border);
+}
+.bed-tile--dirty {
+  background-color: rgba(250, 176, 5, 0.06);
+  border-color: rgba(250, 176, 5, 0.3);
+}
+.bed-tile--maintenance,
+.bed-tile--out-of-order {
+  background-color: rgba(250, 82, 82, 0.06);
+  border-color: rgba(250, 82, 82, 0.3);
+  opacity: 0.85;
+}
+
+/* ── Interaction states ──────────── */
+.bed-tile--clickable {
+  cursor: pointer;
+}
+.bed-tile--clickable:hover {
+  box-shadow: 0 0 0 2px var(--color-brand-500);
+}
+
+.bed-tile--selected {
+  box-shadow: 0 0 0 2px var(--color-brand-500);
+  border-color: var(--color-brand-500);
+  background-color: rgba(92, 155, 245, 0.08);
+}
+
+.bed-tile--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

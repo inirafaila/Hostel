@@ -1,0 +1,54 @@
+.row-action-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-fast);
+}
+
+/* Shown on parent tr hover via :has() — calling context can also use .row-action-group--visible */
+tr:hover .row-action-group,
+.row-action-group--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.row-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-2);
+  background: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  font-family: var(--font-sans);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.row-action-btn:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.06);
+  color: var(--color-text-primary);
+  border-color: var(--color-border);
+}
+
+.row-action-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.row-action-btn--destructive {
+  color: var(--color-danger-500);
+}
+.row-action-btn--destructive:hover:not(:disabled) {
+  background-color: rgba(250, 82, 82, 0.08);
+  border-color: var(--color-danger-500);
+}
+
+.row-action-btn__icon {
+  font-size: 0.85em;
+}

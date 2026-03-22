@@ -1,0 +1,62 @@
+.layout-fmd {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Sticky filter bar — stays put while list scrolls */
+.layout-fmd__filter-bar {
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: var(--color-surface-page);
+}
+
+.layout-fmd__alert {
+  flex-shrink: 0;
+  padding: var(--space-3) var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* The body is a flex row: list + optional panel */
+.layout-fmd__body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0; /* critical: allows children to shrink below content height */
+}
+
+/* Master list — takes remaining width, scrolls independently */
+.layout-fmd__master {
+  flex: 1;
+  overflow-y: auto;
+  min-width: 0;
+  position: relative;
+}
+
+.layout-fmd__loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(26, 31, 46, 0.6);
+  z-index: 5;
+}
+
+/* Inherit .layout-spinner from SummaryBoardLayout.css or redefine here */
+.layout-spinner {
+  display: inline-block;
+  width: 28px;
+  height: 28px;
+  border: 3px solid rgba(255, 255, 255, 0.08);
+  border-top-color: var(--color-brand-500);
+  border-radius: 50%;
+  animation: layout-spin 0.8s linear infinite;
+}
+
+@keyframes layout-spin {
+  to { transform: rotate(360deg); }
+}

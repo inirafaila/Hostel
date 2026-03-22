@@ -1,0 +1,96 @@
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  border-left: 3px solid transparent;
+  font-size: var(--font-size-sm);
+}
+
+.alert__tier-icon {
+  flex-shrink: 0;
+  font-size: var(--font-size-base);
+  line-height: 1.4;
+  opacity: 0.9;
+}
+
+.alert__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.alert__title {
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.3;
+}
+
+.alert__content {
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.alert__action {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  align-self: center;
+}
+
+.alert__dismiss {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: currentColor;
+  opacity: 0.5;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  padding: var(--space-1);
+  border-radius: var(--radius-sm);
+  align-self: flex-start;
+  transition: opacity var(--transition-fast);
+  line-height: 1;
+}
+.alert__dismiss:hover { opacity: 0.9; }
+
+/* ── Info ──────────────────────────────────────────── */
+.alert--info {
+  background-color: rgba(51, 154, 240, 0.08);
+  border-left-color: var(--color-info-500);
+  color: var(--color-info-100);
+}
+
+/* ── Warning — soft concern, action still possible ── */
+.alert--warning {
+  background-color: rgba(250, 176, 5, 0.08);
+  border-left-color: var(--color-warning-500);
+  color: var(--color-warning-100);
+}
+
+/* ── Danger — critical unresolved ─────────────────── */
+.alert--danger {
+  background-color: rgba(250, 82, 82, 0.08);
+  border-left-color: var(--color-danger-500);
+  color: var(--color-danger-100);
+}
+
+/* ── Block — hard stop, heavier than danger ─────────
+   Block ≠ Warning ≠ Override — must stay visually distinct */
+.alert--block {
+  background-color: rgba(250, 82, 82, 0.14);
+  border-left: 5px solid var(--color-danger-700);
+  color: var(--color-danger-100);
+}
+
+/* ── Inline variant — lighter, borderless ─────────── */
+.alert--inline {
+  border-left: none;
+  border-radius: var(--radius-sm);
+  padding: var(--space-2) var(--space-3);
+}
+.alert--info.alert--inline    { background-color: rgba(51, 154, 240, 0.05); }
+.alert--warning.alert--inline { background-color: rgba(250, 176, 5, 0.05); }
+.alert--danger.alert--inline  { background-color: rgba(250, 82, 82, 0.05); }
+.alert--block.alert--inline   { background-color: rgba(250, 82, 82, 0.08); }

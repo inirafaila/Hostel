@@ -1,0 +1,8 @@
+/* AppShell layout — CSS Grid: fixed nav + flexible content */
+.app-shell {
+  display: grid;
+  grid-template-columns: var(--nav-rail-width) 1fr;
+  grid-template-rows: 100vh;
+  min-height: 100vh;
+  overflow: hidden;
+}

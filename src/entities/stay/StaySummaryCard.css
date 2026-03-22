@@ -1,0 +1,95 @@
+.stay-card {
+  background-color: var(--color-surface-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.stay-card--clickable {
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+.stay-card--clickable:hover {
+  border-color: var(--color-border-strong);
+  background-color: var(--color-surface-elevated);
+}
+
+.stay-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.stay-card__identity {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.stay-card__name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Bed label — prominently styled */
+.stay-card__bed {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-brand-500);
+  letter-spacing: 0.02em;
+}
+
+.stay-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.stay-card__dates {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-xs);
+}
+
+.stay-card__label {
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stay-card__value {
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+}
+
+.stay-card__sep {
+  color: var(--color-text-muted);
+}
+
+/* Balance due — visually prominent when present */
+.stay-card__balance {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.stay-card__balance-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stay-card__balance-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-warning-500);
+}

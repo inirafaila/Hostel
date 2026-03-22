@@ -1,0 +1,63 @@
+.maint-timeline {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding-left: var(--space-4);
+  border-left: 2px solid var(--color-border);
+}
+
+.maint-timeline__event {
+  position: relative;
+  padding: var(--space-2) 0 var(--space-2) var(--space-4);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+}
+
+/* Timeline dot anchored to the left border line */
+.maint-timeline__dot {
+  position: absolute;
+  left: calc(-1 * var(--space-4) - 5px);
+  top: calc(var(--space-2) + 4px);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-border-strong);
+  border: 2px solid var(--color-surface-page);
+}
+
+.maint-timeline__event--open        .maint-timeline__dot { background-color: var(--color-danger-500); }
+.maint-timeline__event--in-progress .maint-timeline__dot { background-color: var(--color-info-500); }
+/* Blocked — larger, highly distinct to signal a hard stop state */
+.maint-timeline__event--blocked     .maint-timeline__dot { background-color: var(--color-danger-500); width: 14px; height: 14px; left: calc(-1 * var(--space-4) - 7px); }
+.maint-timeline__event--resolved    .maint-timeline__dot { background-color: var(--color-success-500); }
+.maint-timeline__event--closed      .maint-timeline__dot { background-color: var(--color-neutral-500); }
+
+.maint-timeline__content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.maint-timeline__label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.maint-timeline__event--blocked .maint-timeline__label {
+  color: var(--color-danger-500);
+}
+
+.maint-timeline__time {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.maint-timeline__note {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin-top: 2px;
+}

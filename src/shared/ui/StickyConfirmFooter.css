@@ -1,0 +1,76 @@
+.sticky-footer {
+  flex-shrink: 0;
+  background-color: var(--color-surface-elevated);
+  border-top: 1px solid var(--color-border-strong);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Override slot — distinct zone above the main footer bar */
+.sticky-footer__override {
+  padding: var(--space-3) var(--space-8);
+  border-bottom: 1px solid var(--color-border-strong);
+  background-color: rgba(250, 82, 82, 0.06);
+}
+
+/* Main content row */
+.sticky-footer__content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-8);
+  min-height: var(--sticky-footer-height);
+  flex-wrap: wrap;
+}
+
+/* Consequence table — left side */
+.sticky-footer__consequences {
+  display: flex;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+}
+
+.sticky-footer__consequence-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sticky-footer__consequence-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sticky-footer__consequence-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.sticky-footer__consequence-value--strong {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+}
+.sticky-footer__consequence-value--warning {
+  color: var(--color-warning-500);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Right zone: warning + actions */
+.sticky-footer__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-shrink: 0;
+}
+
+.sticky-footer__warning {
+  /* Warning adjacent to CTA */
+}
+
+.sticky-footer__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
