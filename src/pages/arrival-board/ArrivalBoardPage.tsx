@@ -21,7 +21,7 @@ export function ArrivalBoardPage() {
     <PageHeader
       title="Arrival Board"
       description="Expected check-ins for Mar 22, 2026"
-      actions={<Button variant="primary">New Reservation</Button>}
+      actions={<Button variant="primary" disabled title="Creating reservations is an upcoming feature">New Reservation</Button>}
     />
   )
 

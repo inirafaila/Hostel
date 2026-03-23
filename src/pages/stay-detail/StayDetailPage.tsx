@@ -13,10 +13,12 @@ import { FolioTotalsBox } from '@entities/folio/FolioTotalsBox'
 import { useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import { CheckoutWorkflow } from '@workflows/checkout/CheckoutWorkflow'
+import { BedMoveWorkflow } from '@workflows/bed-move/BedMoveWorkflow'
 
 export function StayDetailPage() {
   const navigate = useNavigate()
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
+  const [isMoveOpen, setIsMoveOpen] = useState(false)
 
   const header = (
     <PageHeader
@@ -79,9 +81,9 @@ export function StayDetailPage() {
           children: (
             <>
               <Button variant="secondary" onClick={() => navigate('/reservations/r1')}>View Origin Reservation</Button>
-              <Button variant="secondary">Post Charge</Button>
-              <Button variant="secondary">Extend Stay</Button>
-              <Button variant="secondary">Move Bed</Button>
+              <Button variant="secondary" disabled title="Charges must be posted from the Folio page">Post Charge</Button>
+              <Button variant="secondary" disabled title="Stay extensions are an upcoming feature">Extend Stay</Button>
+              <Button variant="secondary" onClick={() => setIsMoveOpen(true)}>Move Bed</Button>
             </>
           )
         }
@@ -104,6 +106,15 @@ export function StayDetailPage() {
           currentBed="D2-B5"
           folioBalance={78.50}
           onClose={() => setIsCheckoutOpen(false)}
+        />
+      )}
+
+      {isMoveOpen && (
+        <BedMoveWorkflow
+          stayId="S-99120"
+          guestName="Carlos Ruiz"
+          currentBed="D2-B5"
+          onClose={() => setIsMoveOpen(false)}
         />
       )}
     </DetailSidebarLayout>

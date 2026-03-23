@@ -23,7 +23,7 @@ export function ReservationDetailPage() {
     <PageHeader
       title="Alice Mbeki"
       subtitle="Ref: R-00123"
-      actions={<Button variant="secondary">Cancel Reservation</Button>}
+      actions={<Button variant="secondary" disabled title="Cancellation is an upcoming feature">Cancel Reservation</Button>}
     />
   )
 
@@ -93,8 +93,8 @@ export function ReservationDetailPage() {
           children: (
             <>
               <Button variant="secondary" onClick={() => navigate('/stays/s1')}>View Active Stay</Button>
-              <Button variant="secondary">Modify Dates</Button>
-              <Button variant="secondary">Change Bed Assignment</Button>
+              <Button variant="secondary" disabled title="Date modification is an upcoming feature">Modify Dates</Button>
+              <Button variant="secondary" disabled title="Manual assignment modification is an upcoming feature">Change Bed Assignment</Button>
             </>
           )
         }

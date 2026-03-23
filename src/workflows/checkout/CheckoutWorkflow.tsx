@@ -48,7 +48,7 @@ export function CheckoutWorkflow({ stayId, guestName, currentBed, folioBalance, 
               {(hasBalance || hasNegativeBalance) && (
                 <div style={{ padding: 'var(--space-4)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)' }}>
                   <h3 style={{ fontSize: 'var(--font-size-sm)', margin: '0 0 var(--space-3) 0' }}>Resolve Folio Before Departure</h3>
-                  <Button variant="secondary" style={{ width: '100%' }}>Launch Folio UI</Button>
+                  <Button variant="secondary" style={{ width: '100%' }} disabled title="Folio settlement happens via the Folio page">Launch Folio UI (Deferred)</Button>
                 </div>
               )}
             </div>

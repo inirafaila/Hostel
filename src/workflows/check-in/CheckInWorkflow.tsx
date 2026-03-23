@@ -49,7 +49,7 @@ export function CheckInWorkflow({ reservationId, guestName, assignedBed, balance
               {hasFinancialBlock && (
                 <div style={{ padding: 'var(--space-4)', border: '1px solid var(--color-border)', borderRadius: 'var(--radius-md)' }}>
                   <h3 style={{ fontSize: 'var(--font-size-sm)', margin: '0 0 var(--space-3) 0' }}>Settle Balance Before Entry</h3>
-                  <Button variant="secondary" style={{ width: '100%' }}>Launch Payment UI</Button>
+                  <Button variant="secondary" style={{ width: '100%' }} disabled title="Settle the balance on the Folio page prior to check-in">Launch Payment UI (Deferred)</Button>
                 </div>
               )}
             </div>

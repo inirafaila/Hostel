@@ -22,7 +22,7 @@ export function FolioPage() {
     <PageHeader
       title="Folio: F-10023"
       subtitle="Alice Mbeki · Stay: 22 Mar - 25 Mar"
-      actions={<Button variant="secondary">Print statement</Button>}
+      actions={<Button variant="secondary" disabled title="Printing is an upcoming feature">Print statement</Button>}
     />
   )
 
@@ -74,7 +74,7 @@ export function FolioPage() {
             <>
               <Button variant="primary" onClick={() => setIsPaymentOpen(true)}>Post Payment</Button>
               <Button variant="secondary" onClick={() => setIsRefundOpen(true)}>Issue Refund</Button>
-              <Button variant="secondary">Add Charge</Button>
+              <Button variant="secondary" disabled title="Manual charge entry is an upcoming feature">Add Charge</Button>
             </>
           )
         }
