@@ -1,0 +1,13 @@
+{
+  "name": "hostel-backend",
+  "version": "1.0.0",
+  "description": "Minimal backend compilation baseline",
+  "main": "index.js",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^20.0.0"
+  }
+}
