@@ -24,7 +24,8 @@
 }
 
 .btn:disabled {
-  opacity: 0.45;
+  opacity: 0.35;
+  filter: grayscale(100%);
   cursor: not-allowed;
 }
 

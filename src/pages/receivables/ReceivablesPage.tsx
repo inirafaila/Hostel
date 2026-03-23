@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { FilterMasterDetailLayout } from '@shared/layouts/FilterMasterDetailLayout'
 import { PageHeader } from '@shared/ui/PageHeader'
 import { Button } from '@shared/ui/Button'
@@ -25,6 +26,7 @@ function ReceivableRow({ entityName, id, folioId, amount, due, status, onClick }
 
 export function ReceivablesPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
+  const navigate = useNavigate()
 
   const header = (
     <PageHeader
@@ -73,7 +75,7 @@ export function ReceivablesPage() {
     actions: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
         <Button variant="primary" disabled title="Recording collection directly is an upcoming feature">Record Collection</Button>
-        <Button variant="secondary" disabled title="Direct Folio deep-linking is currently deferred">View Original Folio</Button>
+        <Button variant="secondary" onClick={() => navigate('/folios/' + (selectedId === 'RCV-01' ? 'F-9900' : 'F-9901'))}>View Original Folio</Button>
       </div>
     )
   } : undefined

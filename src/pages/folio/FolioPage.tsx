@@ -9,6 +9,7 @@ import { SectionShell } from '@shared/ui/SectionShell'
 import { FolioTotalsBox } from '@entities/folio/FolioTotalsBox'
 import { PaymentSummaryStrip } from '@entities/folio/PaymentSummaryStrip'
 import { ReceivableRow } from '@entities/receivable/ReceivableRow'
+import { useNavigate, Link } from 'react-router-dom'
 
 // Workflows (stubs for this page context)
 import { PaymentEntryWorkflow } from '@workflows/payment/PaymentEntryWorkflow'
@@ -20,7 +21,12 @@ export function FolioPage() {
 
   const header = (
     <PageHeader
-      title="Folio: F-10023"
+      title={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+          <Link to="/receivables" style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', textDecoration: 'none' }}>← Guest Finance Open Receivables</Link>
+          <span>Folio: F-10023</span>
+        </div>
+      }
       subtitle="Alice Mbeki · Stay: 22 Mar - 25 Mar"
       actions={<Button variant="secondary" disabled title="Printing is an upcoming feature">Print statement</Button>}
     />

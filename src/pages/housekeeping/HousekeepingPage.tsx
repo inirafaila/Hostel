@@ -22,12 +22,11 @@ export function HousekeepingPage() {
       filters={
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
           <select style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
-            <option value="all">Status: All Tasks</option>
-            <option value="dirty">Status: Dirty (Due out)</option>
+            <option value="all">Show All Needs</option>
+            <option value="dirty">Only Dirty Turnovers</option>
           </select>
-          <select style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
-            <option value="all">Zone: All</option>
-            <option value="z1">Zone: Floor 1</option>
+          <select style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-secondary)' }}>
+            <option value="all">Any Floor / Zone</option>
           </select>
         </div>
       }

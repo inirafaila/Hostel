@@ -18,6 +18,8 @@ export interface BedMoveWorkflowProps {
 export function BedMoveWorkflow({ stayId, guestName, currentBed, onClose }: BedMoveWorkflowProps) {
   const [step, setStep] = useState<1 | 2>(1)
   const [selectedBed, setSelectedBed] = useState<string>('')
+  const [overrideChecked, setOverrideChecked] = useState(false)
+  const [overrideReason, setOverrideReason] = useState('')
 
   // Mock rules validation
   const ruleConflict = selectedBed === 'D1-B1' // Suppose D1 is Female Only, guest is Male
@@ -98,13 +100,24 @@ export function BedMoveWorkflow({ stayId, guestName, currentBed, onClose }: BedM
             ]}
             override={
               ruleConflict ? (
-                <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', cursor: 'pointer', color: 'var(--color-text-primary)' }}>
-                  <input type="checkbox" required />
-                  Override Gender Requirement Rule
-                </label>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', cursor: 'pointer', color: 'var(--color-text-primary)' }}>
+                    <input type="checkbox" checked={overrideChecked} onChange={e => setOverrideChecked(e.target.checked)} required />
+                    Override Gender Requirement Rule
+                  </label>
+                  {overrideChecked && (
+                    <input 
+                      type="text" 
+                      placeholder="Reason for override (required)" 
+                      value={overrideReason} 
+                      onChange={e => setOverrideReason(e.target.value)}
+                      style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', width: '100%', fontSize: 'var(--font-size-sm)' }}
+                    />
+                  )}
+                </div>
               ) : undefined
             }
-            primaryAction={<Button variant="primary" onClick={onClose}>Confirm Move</Button>}
+            primaryAction={<Button variant="primary" disabled={ruleConflict && (!overrideChecked || !overrideReason.trim())} onClick={onClose}>Confirm Move</Button>}
             secondaryAction={<Button variant="secondary" onClick={() => setStep(1)}>Back</Button>}
           />
         )}

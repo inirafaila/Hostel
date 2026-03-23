@@ -31,16 +31,13 @@ export function ArrivalBoardPage() {
         <input 
           type="search" 
           placeholder="Search name or ref..." 
-          style={{ padding: 'var(--space-2) var(--space-3)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)' }} 
+          style={{ padding: 'var(--space-2) var(--space-3)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', flex: 1 }} 
         />
       }
       filters={
         <div style={{ display: 'flex', gap: 'var(--space-3)' }}>
-          <select style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
-            <option value="all">Status: All expected</option>
-          </select>
-          <select style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)' }}>
-            <option value="due">Balance: Due</option>
+          <select style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-secondary)' }}>
+            <option value="all">Unpaid Balance Only</option>
           </select>
         </div>
       }
@@ -102,7 +99,7 @@ export function ArrivalBoardPage() {
     ),
     actions: (
       <>
-        <Button variant="primary" style={{ width: '100%' }}>Check In Guest</Button>
+        <Button variant="primary" style={{ width: '100%', padding: 'var(--space-3)', fontSize: 'var(--font-size-base)' }}>Process Check-In</Button>
         <Button variant="secondary" style={{ width: '100%' }}>View Full Detail</Button>
       </>
     )
@@ -118,10 +115,10 @@ export function ArrivalBoardPage() {
       contextPanel={selectedId ? {
         ...contextPanel,
         actions: (
-          <>
-            <Button variant="primary" style={{ width: '100%' }} onClick={() => setIsCheckInOpen(true)}>Check In Guest</Button>
-            <Button variant="secondary" style={{ width: '100%' }} onClick={() => navigate(`/reservations/${selectedId}`)}>View Full Detail</Button>
-          </>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+            <Button variant="primary" style={{ width: '100%', padding: 'var(--space-3)', fontSize: 'var(--font-size-base)' }} onClick={() => setIsCheckInOpen(true)}>Process Check-In</Button>
+            <Button variant="secondary" style={{ width: '100%' }} onClick={() => navigate(`/reservations/${selectedId}`)}>View Reservation Detail</Button>
+          </div>
         )
       } : undefined}
     >

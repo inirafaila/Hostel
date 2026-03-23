@@ -50,9 +50,9 @@ export function MaintenancePage() {
       search={<input type="search" placeholder="Search issues..." style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)' }} />}
       filters={
         <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-          <select style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)' }}>
-            <option value="all">Impact: All</option>
-            <option value="block">Impact: Blocking Sellability</option>
+          <select style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', backgroundColor: 'var(--color-surface)', color: 'var(--color-text-secondary)' }}>
+            <option value="all">Severity: All Issues</option>
+            <option value="block">Only Blocking Sellability</option>
           </select>
         </div>
       }

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 import './NavRail.css'
 
 const navItems = [
@@ -18,6 +18,17 @@ const navItems = [
  * the Arrival Board / Dashboard rather than top-level nav links.
  */
 export function NavRail() {
+  const { pathname } = useLocation()
+
+  const checkIsActive = (currPath: string, linkTo: string) => {
+    if (currPath === linkTo) return true
+    if (linkTo === '/') return currPath === '/'
+    if (linkTo === '/arrivals' && currPath.startsWith('/reservations')) return true
+    if (linkTo === '/inventory' && currPath.startsWith('/stays')) return true
+    if (linkTo === '/receivables' && currPath.startsWith('/folios')) return true
+    return currPath.startsWith(linkTo)
+  }
+
   return (
     <nav className="nav-rail" aria-label="Main navigation">
       <div className="nav-rail__header">
@@ -31,8 +42,8 @@ export function NavRail() {
             <NavLink
               to={to}
               end={to === '/'}
-              className={({ isActive }) =>
-                `nav-rail__link${isActive ? ' nav-rail__link--active' : ''}`
+              className={() =>
+                `nav-rail__link${checkIsActive(pathname, to) ? ' nav-rail__link--active' : ''}`
               }
               aria-label={label}
             >

@@ -10,7 +10,7 @@ import { StayStatusBadge } from '@entities/stay/StayStatusBadge'
 import { AssignmentCard } from '@entities/assignment/AssignmentCard'
 import { HousekeepingTaskRow } from '@entities/housekeeping-task/HousekeepingTaskRow'
 import { FolioTotalsBox } from '@entities/folio/FolioTotalsBox'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { CheckoutWorkflow } from '@workflows/checkout/CheckoutWorkflow'
 import { BedMoveWorkflow } from '@workflows/bed-move/BedMoveWorkflow'
@@ -22,7 +22,12 @@ export function StayDetailPage() {
 
   const header = (
     <PageHeader
-      title="Carlos Ruiz"
+      title={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+          <Link to="/inventory" style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', textDecoration: 'none' }}>← In-House Matrix</Link>
+          <span>Carlos Ruiz</span>
+        </div>
+      }
       subtitle="In House · D2-B5"
       actions={<Button variant="primary" onClick={() => setIsCheckoutOpen(true)}>Proceed to Checkout</Button>}
     />

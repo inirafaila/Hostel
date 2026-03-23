@@ -10,7 +10,7 @@ import { ReservationStatusBadge } from '@entities/reservation/ReservationStatusB
 import { AssignmentCard } from '@entities/assignment/AssignmentCard'
 import { ValidationSummaryBlock } from '@shared/ui/ValidationSummaryBlock'
 import { FolioTotalsBox } from '@entities/folio/FolioTotalsBox'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 
 import { CheckInWorkflow } from '@workflows/check-in/CheckInWorkflow'
@@ -21,7 +21,12 @@ export function ReservationDetailPage() {
 
   const header = (
     <PageHeader
-      title="Alice Mbeki"
+      title={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-1)' }}>
+          <Link to="/arrivals" style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-secondary)', textDecoration: 'none' }}>← Arrivals Panel</Link>
+          <span>Alice Mbeki</span>
+        </div>
+      }
       subtitle="Ref: R-00123"
       actions={<Button variant="secondary" disabled title="Cancellation is an upcoming feature">Cancel Reservation</Button>}
     />

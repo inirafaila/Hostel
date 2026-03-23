@@ -20,6 +20,8 @@ export interface CheckInWorkflowProps {
  */
 export function CheckInWorkflow({ reservationId, guestName, assignedBed, balanceDue, bedReady, onClose }: CheckInWorkflowProps) {
   const [step, setStep] = useState<1 | 2>(1)
+  const [overrideChecked, setOverrideChecked] = useState(false)
+  const [overrideReason, setOverrideReason] = useState('')
 
   const hasFinancialBlock = balanceDue > 0
   const hasBedBlock = !bedReady
@@ -79,13 +81,24 @@ export function CheckInWorkflow({ reservationId, guestName, assignedBed, balance
             ]}
             override={
               hasBedBlock ? (
-                <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', cursor: 'pointer', color: 'var(--color-text-primary)' }}>
-                  <input type="checkbox" required />
-                  Override Bed Readiness Block
-                </label>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
+                  <label style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-2)', fontSize: 'var(--font-size-sm)', fontWeight: 'var(--font-weight-medium)', cursor: 'pointer', color: 'var(--color-text-primary)' }}>
+                    <input type="checkbox" checked={overrideChecked} onChange={e => setOverrideChecked(e.target.checked)} required />
+                    Override Bed Readiness Block
+                  </label>
+                  {overrideChecked && (
+                    <input 
+                      type="text" 
+                      placeholder="Reason for override (required)" 
+                      value={overrideReason} 
+                      onChange={e => setOverrideReason(e.target.value)}
+                      style={{ padding: 'var(--space-2)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-border)', width: '100%', fontSize: 'var(--font-size-sm)' }}
+                    />
+                  )}
+                </div>
               ) : undefined
             }
-            primaryAction={<Button variant="primary" onClick={onClose}>Check In</Button>}
+            primaryAction={<Button variant="primary" disabled={hasBedBlock && (!overrideChecked || !overrideReason.trim())} onClick={onClose}>Check In</Button>}
             secondaryAction={<Button variant="secondary" onClick={() => setStep(1)}>Back</Button>}
           />
         )}
