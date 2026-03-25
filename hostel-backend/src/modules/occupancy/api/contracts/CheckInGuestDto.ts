@@ -1,5 +1,7 @@
+import { CheckInValidationRuleCode } from '../../domain/validators/CheckInValidationContracts';
+
 export interface OverridePayload {
-  rule: string;
+  rule: CheckInValidationRuleCode;
   reason: string;
 }
 
@@ -21,7 +23,9 @@ export interface ValidationFailureResponse {
   error: 'ValidationFailed';
   requiresOverride: boolean;
   violations: Array<{
-    rule: string;
+    ruleCode: CheckInValidationRuleCode;
+    severity: string;
     message: string;
+    isOverrideable: boolean;
   }>;
 }

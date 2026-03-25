@@ -1,8 +1,4 @@
-export interface Stay {
-  id: string;
-  reservationId: string;
-  status: string;
-}
+import { Stay } from '../models/OccupancyModels';
 
 export class StayFactory {
   public createStayFromReservation(reservationId: string): Stay {

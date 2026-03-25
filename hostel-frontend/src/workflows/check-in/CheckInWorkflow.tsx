@@ -5,12 +5,15 @@ import { ValidationSummaryBlock } from '@shared/ui/ValidationSummaryBlock'
 import { AlertShell } from '@shared/ui/AlertShell'
 
 export interface CheckInWorkflowProps {
-  reservationId: string
+  reservationId: string      // Backend ID
+  targetBedId: string        // Backend ID
+  displayRef: string         // Human-friendly ref (e.g. R-00123)
   guestName: string
-  assignedBed: string
+  assignedBed: string        // Human-friendly label (e.g. D4-B2)
   balanceDue: number
   bedReady: boolean
   onClose: () => void
+  onSuccess?: (stayId: string) => void
 }
 
 /**
@@ -18,13 +21,59 @@ export interface CheckInWorkflowProps {
  * Explicitly surfaces bed readiness, financial blockers, and operational consequence.
  * CheckIn transforms Reservation context into active Stay context.
  */
-export function CheckInWorkflow({ reservationId, guestName, assignedBed, balanceDue, bedReady, onClose }: CheckInWorkflowProps) {
+export function CheckInWorkflow({ reservationId, targetBedId, displayRef, guestName, assignedBed, balanceDue, bedReady, onClose, onSuccess }: CheckInWorkflowProps) {
   const [step, setStep] = useState<1 | 2>(1)
   const [overrideChecked, setOverrideChecked] = useState(false)
   const [overrideReason, setOverrideReason] = useState('')
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [serverError, setServerError] = useState<{ message: string; failures?: any[] } | null>(null)
 
   const hasFinancialBlock = balanceDue > 0
   const hasBedBlock = !bedReady
+
+  const handleExecuteCheckIn = async () => {
+    setIsSubmitting(true)
+    setServerError(null)
+
+    const payload = {
+      reservationId,
+      targetBedId,
+      operatorId: 'operator-123',
+      overrides: overrideChecked && overrideReason.trim() ? [
+        { rule: 'BedDirty', reason: overrideReason }
+      ] : []
+    }
+
+    try {
+      const CHECK_IN_API_URL = 'http://localhost:3001/api/stays/check-in'
+      const res = await fetch(CHECK_IN_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        if (data.error === 'ValidationFailed') {
+          setServerError({
+            message: data.requiresOverride ? 'Check-in blocked. Explicit overrides required.' : 'Check-in blocked by strict rules.',
+            failures: data.violations
+          })
+          setStep(1) // kick them back to review
+        } else {
+          setServerError({ message: data.message || 'An unknown error occurred on the server' })
+        }
+      } else {
+        if (onSuccess) onSuccess(data.stayId)
+        onClose()
+      }
+    } catch (err) {
+      setServerError({ message: 'Network error communicating with check-in service.' })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <div className="wf-overlay" style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 9999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -32,10 +81,20 @@ export function CheckInWorkflow({ reservationId, guestName, assignedBed, balance
         
         <header style={{ padding: 'var(--space-4)', borderBottom: '1px solid var(--color-border)' }}>
           <h2 style={{ margin: 0, fontSize: 'var(--font-size-lg)' }}>Check In Guest</h2>
-          <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>{guestName} · {reservationId}</span>
+          <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>{guestName} · {displayRef}</span>
         </header>
 
         <div style={{ padding: 'var(--space-4)', overflowY: 'auto' }}>
+          {serverError && (
+            <div style={{ marginBottom: 'var(--space-4)' }}>
+              <AlertShell tier="block" title={serverError.message}>
+                {serverError.failures && serverError.failures.map((f, i) => (
+                  <div key={i}>• [{f.ruleCode}] {f.message}</div>
+                ))}
+              </AlertShell>
+            </div>
+          )}
+
           {step === 1 ? (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-4)' }}>
               
@@ -98,8 +157,16 @@ export function CheckInWorkflow({ reservationId, guestName, assignedBed, balance
                 </div>
               ) : undefined
             }
-            primaryAction={<Button variant="primary" disabled={hasBedBlock && (!overrideChecked || !overrideReason.trim())} onClick={onClose}>Check In</Button>}
-            secondaryAction={<Button variant="secondary" onClick={() => setStep(1)}>Back</Button>}
+            primaryAction={
+              <Button 
+                variant="primary" 
+                disabled={isSubmitting || (hasBedBlock && (!overrideChecked || !overrideReason.trim()))} 
+                onClick={handleExecuteCheckIn}
+              >
+                {isSubmitting ? 'Processing...' : 'Check In'}
+              </Button>
+            }
+            secondaryAction={<Button variant="secondary" disabled={isSubmitting} onClick={() => setStep(1)}>Back</Button>}
           />
         )}
       </div>

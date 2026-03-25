@@ -17,6 +17,14 @@ export function ArrivalBoardPage() {
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [isCheckInOpen, setIsCheckInOpen] = useState(false)
 
+  const MOCK_DB: Record<string, any> = {
+    'r1': { backendResId: 'reservation-clean-1', backendBedId: 'bed-dirty-1', ref: 'R-00123', name: 'Alice Mbeki', checkIn: '22 Mar', checkOut: '25 Mar', nights: 3, bedLabel: 'D4-B2', dormLabel: 'Dorm 4', balanceDue: 45.00, bedReady: false, status: 'confirmed' },
+    'r2': { backendResId: 'reservation-clean-2', backendBedId: 'bed-clean-1', ref: 'R-00456', name: 'James Okafor', checkIn: '22 Mar', checkOut: '24 Mar', nights: 2, bedLabel: 'Unassigned', dormLabel: 'To be assigned', balanceDue: 0, bedReady: true, status: 'tentative' },
+    'r3': { backendResId: 'reservation-occupied-1', backendBedId: 'bed-occupied-1', ref: 'R-00789', name: 'Priya Nair', checkIn: '22 Mar', checkOut: '23 Mar', nights: 1, bedLabel: 'D2-B1', dormLabel: 'Dorm 2', balanceDue: 0, bedReady: true, status: 'confirmed' }
+  }
+
+  const selectedData = selectedId ? MOCK_DB[selectedId] : null
+
   const header = (
     <PageHeader
       title="Arrival Board"
@@ -73,29 +81,29 @@ export function ArrivalBoardPage() {
     </div>
   )
 
-  const contextPanel = selectedId ? {
+  const contextPanel = selectedData ? {
     open: true,
     title: 'Arrival Context',
     onClose: () => setSelectedId(null),
     identity: (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--space-2)' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h3 style={{ margin: 0, fontSize: 'var(--font-size-base)', color: 'var(--color-text-primary)' }}>Alice Mbeki</h3>
-          <ReservationStatusBadge status="confirmed" size="sm" />
+          <h3 style={{ margin: 0, fontSize: 'var(--font-size-base)', color: 'var(--color-text-primary)' }}>{selectedData.name}</h3>
+          <ReservationStatusBadge status={selectedData.status} size="sm" />
         </div>
-        <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>R-00123 · 3 nights (22 Mar → 25 Mar)</span>
-        <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-brand-500)', fontWeight: 'var(--font-weight-medium)' }}>🛏 D4-B2 (Dorm 4)</span>
+        <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-text-muted)' }}>{selectedData.ref} · {selectedData.nights} nights ({selectedData.checkIn} → {selectedData.checkOut})</span>
+        <span style={{ fontSize: 'var(--font-size-sm)', color: 'var(--color-brand-500)', fontWeight: 'var(--font-weight-medium)' }}>🛏 {selectedData.bedLabel} ({selectedData.dormLabel})</span>
       </div>
     ),
-    warnings: (
+    warnings: selectedData.balanceDue > 0 ? (
       <ValidationSummaryBlock
         items={[
-          { id: 'w1', severity: 'warning', message: 'Balance due of $45.00 before check-in' },
+          { id: 'w1', severity: 'warning', message: `Balance due of $${selectedData.balanceDue.toFixed(2)} before check-in` },
         ]}
       />
-    ),
+    ) : null,
     summary: (
-      <FolioTotalsBox chargesTotal={145.00} paymentsTotal={100.00} refundsTotal={0} balanceDue={45.00} />
+      <FolioTotalsBox chargesTotal={100 + selectedData.balanceDue} paymentsTotal={100.00} refundsTotal={0} balanceDue={selectedData.balanceDue} />
     ),
     actions: (
       <>
@@ -127,30 +135,37 @@ export function ArrivalBoardPage() {
           id="r1" ref="R-00123" guestName="Alice Mbeki"
           checkIn="22 Mar" checkOut="25 Mar" nights={3}
           status="confirmed" bedLabel="D4-B2" roomLabel="Dorm 4"
-          onClick={() => navigate('/reservations/r1')}
+          onClick={() => setSelectedId('r1')}
         />
         <ReservationSummaryCard
           id="r2" ref="R-00456" guestName="James Okafor"
           checkIn="22 Mar" checkOut="24 Mar" nights={2}
           status="tentative"
-          onClick={() => navigate('/reservations/r2')}
+          onClick={() => setSelectedId('r2')}
         />
         <ReservationSummaryCard
           id="r3" ref="R-00789" guestName="Priya Nair"
           checkIn="22 Mar" checkOut="23 Mar" nights={1}
           status="confirmed" bedLabel="D2-B1" roomLabel="Dorm 2"
-          onClick={() => navigate('/reservations/r3')}
+          onClick={() => setSelectedId('r3')}
         />
       </div>
 
-      {isCheckInOpen && selectedId && (
+      {isCheckInOpen && selectedData && (
         <CheckInWorkflow
-          reservationId={selectedId === 'r1' ? 'R-00123' : selectedId === 'r2' ? 'R-00456' : 'R-00789'}
-          guestName={selectedId === 'r1' ? 'Alice Mbeki' : selectedId === 'r2' ? 'James Okafor' : 'Priya Nair'}
-          assignedBed={selectedId === 'r1' ? 'D4-B2' : selectedId === 'r3' ? 'D2-B1' : 'Unassigned'}
-          balanceDue={selectedId === 'r1' ? 45.00 : 0}
-          bedReady={selectedId === 'r1' ? false : true}
+          reservationId={selectedData.backendResId}
+          targetBedId={selectedData.backendBedId}
+          displayRef={selectedData.ref}
+          guestName={selectedData.name}
+          assignedBed={selectedData.bedLabel}
+          balanceDue={selectedData.balanceDue}
+          bedReady={selectedData.bedReady}
           onClose={() => setIsCheckInOpen(false)}
+          onSuccess={(stayId) => {
+            // Cache invalidation stubs (e.g. react-query)
+            console.log("Invalidating caches: ['ArrivalBoard'], ['InventoryMatrix']")
+            navigate(`/stays/${stayId}`)
+          }}
         />
       )}
     </FilterMasterDetailLayout>

@@ -21,7 +21,12 @@ export class CheckInController {
         return {
           error: 'ValidationFailed',
           requiresOverride: e.requiresOverride,
-          violations: e.violations
+          violations: e.violations.map((v: any) => ({
+            ruleCode: v.ruleCode,
+            severity: v.severity,
+            message: v.message,
+            isOverrideable: v.isOverrideable
+          }))
         };
       }
       throw e;
